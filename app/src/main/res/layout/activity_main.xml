@@ -45,6 +45,7 @@
         android:id="@+id/rvNews"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        tools:listitem="@layout/list_item" />
+        tools:listitem="@layout/list_item"
+        android:orientation="horizontal"/>
 
 </LinearLayout>

@@ -23,7 +23,6 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ViewHolder> {
     private Context context;
 
     public NewsAdapter(Context context) {
-        this.newsItem = newsItem;
         this.context = context;
     }
 
@@ -47,8 +46,6 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ViewHolder> {
         Glide.with(context).load(newsItem.get(position).getUrlToImage())
                 .into(holder.ivJudul);
         holder.tvJudul.setText(newsItem.get(position).getTitle());
-        holder.name.setText(newsItem.get(position).getTitle());
-
     }
 
     @Override
@@ -58,12 +55,11 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ViewHolder> {
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         ImageView ivJudul;
-        TextView tvJudul, name;
-        RelativeLayout item_news;
+        TextView tvJudul;
+
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            name = itemView.findViewById(R.id.name);
-            item_news = itemView.findViewById(R.id.item_news);
+
             ivJudul = itemView.findViewById(R.id.ivJudul);
             tvJudul = itemView.findViewById(R.id.tvJudul);
         }
