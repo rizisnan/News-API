@@ -1,14 +1,19 @@
 package com.example.newsapi.Adapter;
 
 import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
@@ -42,10 +47,20 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ViewHolder> {
     }
 
     @Override
-    public void onBindViewHolder(@NonNull NewsAdapter.ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull NewsAdapter.ViewHolder holder, final int position) {
         Glide.with(context).load(newsItem.get(position).getUrlToImage())
                 .into(holder.ivJudul);
         holder.tvJudul.setText(newsItem.get(position).getTitle());
+        holder.tvAuthor.setText(newsItem.get(position).getAuthor());
+        holder.item_news.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Uri webBrowser = Uri.parse(newsItem.get(position).getUrl());
+                Intent intent = new Intent(Intent.ACTION_VIEW, webBrowser);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                context.startActivity(intent);
+            }
+        });
     }
 
     @Override
@@ -55,13 +70,14 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ViewHolder> {
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         ImageView ivJudul;
-        TextView tvJudul;
-
+        TextView tvJudul, tvAuthor;
+        CardView item_news;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-
+            item_news = itemView.findViewById(R.id.item_news);
             ivJudul = itemView.findViewById(R.id.ivJudul);
             tvJudul = itemView.findViewById(R.id.tvJudul);
+            tvAuthor = itemView.findViewById(R.id.tvAuthor);
         }
     }
 }
